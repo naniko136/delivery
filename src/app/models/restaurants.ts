@@ -16,3 +16,7 @@ export interface product {
   category: string;
   id: string;
 }
+
+export interface Cart extends product {
+  quantity: number;
+}

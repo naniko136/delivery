@@ -12,7 +12,7 @@
         <div class="bottom">
           <h2>{{ food.name | titlecase }}</h2>
           <p class="price">{{ food.price | currency }}</p>
-          <button class="addbtn">Add Cart</button>
+          <button class="addbtn" (click)="add(food)">Add Cart</button>
         </div>
       </div>
     }

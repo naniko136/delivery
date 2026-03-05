@@ -19,16 +19,27 @@
         <a class="nav-item" routerLink="foods" routerLinkActive="active"> Foods </a>
       </li>
       <li>
-        <a class="nav-item cart-icon" routerLink="cart" routerLinkActive="active">🛒 </a>
+        <a class="nav-item cart-icon" routerLink="cart" routerLinkActive="active"
+          >🛒
+          @if (totalCount$ | async; as count) {
+            <span class="badge">{{ count }}</span>
+          }
+        </a>
       </li>
-      <div class="auth">
+      @if (authservice.isLoggedIn$ | async) {
         <li>
-          <a class="nav-item" routerLink="log-in" routerLinkActive="active">Log In</a>
+          <a class="nav-item" (click)="authservice.logOut()">Log Out</a>
         </li>
-        <li>
-          <a class="nav-item" routerLink="register" routerLinkActive="active">Register</a>
-        </li>
-      </div>
+      } @else {
+        <div class="auth">
+          <li>
+            <a class="nav-item" routerLink="log-in" routerLinkActive="active">Log In</a>
+          </li>
+          <li>
+            <a class="nav-item" routerLink="register" routerLinkActive="active">Register</a>
+          </li>
+        </div>
+      }
     </ul>
   </nav>
 </div>

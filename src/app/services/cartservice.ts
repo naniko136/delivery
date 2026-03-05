@@ -1,8 +1,54 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, map } from 'rxjs';
+import { Cart, product } from '../models/restaurants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Cartservice {
-  
+  private cartSubject = new BehaviorSubject<Cart[]>([]);
+
+  cart$ = this.cartSubject.asObservable();
+
+  totalCount$ = this.cart$.pipe(
+    map((items) => items.reduce((sum, item) => sum + item.quantity, 0)),
+  );
+
+  addToCart(product: product) {
+    const currentCart = this.cartSubject.value;
+    const existingProduct = currentCart.find((p) => p.id === product.id);
+
+    if (existingProduct) {
+      existingProduct.quantity += 1;
+    } else {
+      currentCart.push({ ...product, quantity: 1 });
+    }
+
+    this.cartSubject.next([...currentCart]);
+  }
+
+  increasequantity(id: string) {
+    const updated = this.cartSubject.value.map((item) =>
+      item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
+    );
+
+    this.cartSubject.next(updated);
+  }
+  decreasequantity(id: string) {
+    const updated = this.cartSubject.value
+      .map((item) => (item.id === id ? { ...item, quantity: item.quantity - 1 } : item))
+      .filter((i) => i.quantity > 0);
+
+    this.cartSubject.next(updated);
+  }
+
+  removeFromCart(id: string) {
+    const currentCart = this.cartSubject.value;
+    const updateCart = currentCart.filter((p) => p.id !== id);
+    this.cartSubject.next(updateCart);
+  }
+
+  clearCart() {
+    this.cartSubject.next([]);
+  }
 }

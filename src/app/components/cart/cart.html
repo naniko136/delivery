@@ -1,1 +1,42 @@
-<p>cart works!</p>
+<div class="container">
+  @if (mainservice.loading()) {
+    <div class="loader-wrapper">
+      <div class="spinner"></div>
+      <p>Loading...</p>
+    </div>
+  } @else {
+    @if (cart$ | async; as items) {
+      @if (items.length === 0) {
+        <p>🛒 Cart is empty</p>
+      } @else {
+        <div class="products">
+          @for (item of items; track item.id) {
+            <div class="product-card">
+              <img [src]="item.image" [alt]="item.name" />
+
+              <h3>{{ item.name | titlecase }}</h3>
+              <p class="description">
+                {{ item.category }}
+              </p>
+
+              <div class="bottom">
+                <span class="price">${{ item.price }}</span>
+                <div class="btnQtydiv">
+                  <button class="btn decreasebtn" (click)="decrease(item.id)">-</button>
+                  <p>
+                    {{ item.quantity }}
+                  </p>
+                  <button class="btn increasebtn" (click)="increase(item.id)">+</button>
+                </div>
+                <p class="price">sum: {{ item.price * item.quantity }}</p>
+                <button class="removebtn" (click)="cartservice.removeFromCart(item.id)">
+                  remove cart
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    }
+  }
+</div>

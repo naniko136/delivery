@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { ILoginRequest, IRegisterRequest } from '../models/auth';
+import { Cartservice } from './cartservice';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ export class Authservice {
   private router = inject(Router);
   private apiUrl = 'https://api.everrest.educata.dev/auth';
   private isLoggedInSubject = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
+  private cartservice = inject(Cartservice);
 
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
@@ -43,6 +45,7 @@ export class Authservice {
   logOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
+    this.cartservice.clearCart();
 
     this.isLoggedInSubject.next(false);
     this.router.navigate(['/log-in']);

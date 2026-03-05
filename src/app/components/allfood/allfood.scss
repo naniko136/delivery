@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.title {
+  max-width: 300px;
+  width: 100%;
+  // margin: 150px auto 50px;
+  text-align: center;
+  border-radius: 30px;
+  box-shadow: 15px 20px 20px rgba(0, 0, 0, 0.09);
+  padding: 10px 20px;
+}
+
+.allfoods {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 50px;
+  padding: 20px;
+  margin-top: 140px;
+
+  .food {
+    max-width: 290px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+    background-color: #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    border: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+
+    img {
+      max-width: 250px;
+      height: 250px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      margin: 0 auto;
+      transition: 0.3s ease;
+
+      &:hover {
+        background-color: black;
+        transform: translateY(-3px);
+      }
+    }
+
+    .bottom {
+      padding: 20px 20px 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 12px;
+
+      .price {
+        color: rgb(64, 203, 203);
+        font-weight: bold;
+        font-size: 25px;
+      }
+
+      .addbtn {
+        max-width: 150px;
+        width: 100%;
+        padding: 7px 15px;
+        border: none;
+        border-radius: 30px;
+        background-color: #dfdfdf;
+        cursor: pointer;
+        font-size: 15px;
+        transition: 0.3s ease;
+
+        &:hover {
+          transform: translateY(-3px);
+          background-color: #c9c9c9;
+          color: #302c2c;
+        }
+      }
+    }
+  }
+}

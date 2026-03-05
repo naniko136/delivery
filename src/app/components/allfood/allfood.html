@@ -1,0 +1,20 @@
+@if (mainservice.loading()) {
+  <div class="loader-wrapper">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+} @else {
+  <div class="allfoods">
+    @for (food of mainservice.allFood(); track food.id) {
+      <div class="food">
+        <img [src]="food.image" [alt]="food.name" />
+
+        <div class="bottom">
+          <h2>{{ food.name | titlecase }}</h2>
+          <p class="price">{{ food.price | currency }}</p>
+          <button class="addbtn">Add Cart</button>
+        </div>
+      </div>
+    }
+  </div>
+}

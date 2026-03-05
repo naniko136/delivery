@@ -1,0 +1,21 @@
+@if (mainservice.loading()) {
+  <div class="loader-wrapper">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+} @else {
+  <div class="restaurants">
+    @for (product of mainservice.restaurants(); track product.id) {
+      <div class="restaurant" [routerLink]="['/restaurant', product.id]">
+        <img [src]="product.image" [alt]="product.name" />
+
+        <div class="bottom">
+          <h2>{{ product.name | titlecase }}</h2>
+          <p>{{ product.category }}</p>
+          <p class="rating">{{ getStars(product.rating) }}</p>
+          <p class="price">{{ product.deliveryPrice | currency }}</p>
+        </div>
+      </div>
+    }
+  </div>
+}
